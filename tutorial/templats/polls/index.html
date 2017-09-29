@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>POLLS</title>
+</head>
+<body>
+<div class="container">
+    <h1>Index</h1>
+    {% for question in questions %}
+        <p><a href="{% url 'question_detail' pk=question.pk %}">{{ question.title }}</a></p>
+    {% endfor %}
+</div>
+</body>
+</html>
