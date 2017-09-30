@@ -1,20 +1,26 @@
-<!doctype html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Polls</title>
-</head>
-<body>
-    <div class="container">
-        <h1>{{ question.title }}</h1>
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        <form method="post" action="{% url 'vote' pk=question.pk %}">
+            {% csrf_token %}
+            <table class="table table-stripped table-bordered">
+                <thead>
+                <tr>
+                    <th colspan="3" style="text-align: center;">{{ question.title }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for choice in question.choice_set.all %}
+                    <tr>
+                        <td>{{ choice.title }}</td>
+                        <td>{{ choice.votes }}</td>
+                        <td><input type="radio" name="vote" value="{{ choice.pk }}"/></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <button class="pull-right">보내기</button>
+        </form>
     </div>
-    <ol>
-        {% for choice in choices %}
-            <li>{{ choice.title }}</li>
-        {% endfor %}
-    </ol>
-</body>
-</html>
+{% endblock %}
